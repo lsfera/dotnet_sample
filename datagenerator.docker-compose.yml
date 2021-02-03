@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  datagenerator:
+    image: datagenerator
+    build:
+      context: .
+      dockerfile: docker/datagenerator/Dockerfile
+    environment:
+      - MESSAGES=1000
+networks:
+  default:
+    external:
+      name: demo

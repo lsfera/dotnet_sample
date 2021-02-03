@@ -1,0 +1,19 @@
+version: '2.4'
+services:
+  application:
+    container_name: ci_container
+    image: mcr.microsoft.com/dotnet/sdk:5.0-alpine3.12-compose
+    tty: true
+    build:
+      context: ./docker/dotnet-sdk
+      dockerfile: Dockerfile
+    working_dir: /work
+    environment:
+      - BASE_PATH=$PWD
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - .:/work
+    entrypoint: ["sh"]
+networks:
+  default:
+    name: demo

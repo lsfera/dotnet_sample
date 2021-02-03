@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  daemon:
+    image: daemon
+    build:
+      context: .
+      dockerfile: docker/daemon/Dockerfile
+    deploy:
+      mode: replicated
+      replicas: 1
+networks:
+  default:
+    external:
+      name: demo

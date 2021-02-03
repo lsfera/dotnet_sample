@@ -1,0 +1,21 @@
+version: '2.4'
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.8.9-management-alpine
+    ports:
+      - "15674:15672"
+      - "5674:5672"
+    healthcheck:
+      test: [ "CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 5s
+      timeout: 15s
+      retries: 3
+    restart: always
+    volumes:
+     - ${BASE_PATH}/docker/rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:rw
+     - ${BASE_PATH}/docker/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json:rw
+networks:
+  default:
+    external:
+      name: demo

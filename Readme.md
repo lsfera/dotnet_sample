@@ -99,5 +99,5 @@ dotnet test Demo.sln -c Local
 ```
 run-ci.sh
 ``` 
-Other few commands (Build/Pack) are available on [Make.ps1](./Make.ps1) for completeness.
-Worth to notice, we're creating windows stuff from a linux box :)
+Refer to [Make.ps1](./Make.ps1) for a more detailed analysis.
+Worth to notice, we're creating windows artifacts from a linux box :)

@@ -29,7 +29,6 @@ namespace TestHarness.Compose
                 Environment.SetEnvironmentVariable("BASE_PATH", ".");
             //In CI we join an existent network - and we need to avoid orphan containers error detection on docker-compose down
             Environment.SetEnvironmentVariable("COMPOSE_IGNORE_ORPHANS", "true");
-
         }
     }
 

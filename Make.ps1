@@ -30,7 +30,7 @@ function Nuke {
 }
 
 function Build {
-    FailFast { dotnet restore --source $slnFile}
+    FailFast { dotnet restore $slnFile}
     FailFast { dotnet publish $projectFile -c $configuration -f net5.0 -r win-x64 -o $publishPath --nologo }
 }
 
@@ -39,7 +39,9 @@ function Test {
 }
 
 function Pack {
-    FailFast { dotnet-octo pack --overwrite --id $projectName --version $env:EXTENDED_VERSION --basePath $publishPath --outFolder $outputPath }
+    $cmd="docker run --rm -v ${env:BASE_PATH}:/work -w /work octopusdeploy/octo pack --overwrite --id $projectName --version $env:EXTENDED_VERSION --basePath $publishPath --outFolder $outputPath"
+    echo $cmd
+    FailFast { Invoke-Expression $cmd }
 }
 
 function FailFast($function) {

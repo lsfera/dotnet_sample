@@ -82,7 +82,7 @@ namespace Daemon.IntegrationTests
             using var connection = Service.BootStrapBroker(configuration);
             var model = connection.CreateModel();
             model.BasicPublish(configuration.ExchangeName, "", true, null,
-                Utf8Json.JsonSerializer.Serialize(order));
+                System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(order));
         }
 
         private UInt32 GetMessageCount(Configuration.RabbitMQ configuration, String queueName)

@@ -5,13 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using NLog;
 using RabbitMQ.Client;
-using Utf8Json;
 
 namespace Daemon
 {
     internal class ConsumerOf<T> : AsyncDefaultBasicConsumer,  IDisposable where T : class
     {
-        private const String Fanout = "fanout";
+        private const String ExchangeType = "fanout";
         private readonly ILogger _logger;
         private readonly IMessageHandlerOf<T> _messageHandler;
         private readonly Configuration.RabbitMQ _configuration;
@@ -44,10 +43,10 @@ namespace Daemon
                                                  Boolean redelivered,
                                                  IBasicProperties basicProperties)
         {
-            var jsonMessage = Encoding.UTF8.GetString(body.Span);
             try
             {
-                await _messageHandler.HandleAsync(JsonSerializer.Deserialize<T>(jsonMessage), _cancellationToken)
+                await _messageHandler.HandleAsync(
+                        System.Text.Json.JsonSerializer.Deserialize<T>(body.Span) ?? throw new ArgumentNullException(nameof(body)), _cancellationToken)
                     .ConfigureAwait(false);
             }
             catch (Exception ex)
@@ -73,8 +72,8 @@ namespace Daemon
                 var queue = Configuration.RabbitMQ.Queue(_configuration);
 
                 
-                channel.ExchangeDeclare(exchange, Fanout, durable:true);
-                channel.ExchangeDeclare(dlExchange, Fanout, durable: true);
+                channel.ExchangeDeclare(exchange, ExchangeType, durable:true);
+                channel.ExchangeDeclare(dlExchange, ExchangeType, durable: true);
                 channel.QueueDeclare(queue,
                     durable: true,
                     exclusive: false,

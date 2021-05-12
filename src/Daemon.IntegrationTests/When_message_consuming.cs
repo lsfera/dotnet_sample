@@ -110,7 +110,7 @@ namespace Daemon.IntegrationTests
             basicProperties.Timestamp = new AmqpTimestamp(_referralDate);
             basicProperties.Type = "urn:message:fulfillment:purchaseorder";
             model.BasicPublish(rabbitMqConfiguration.ExchangeName, "", true, basicProperties,
-                Utf8Json.JsonSerializer.Serialize(order));
+                System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(order));
         }
 
         private UInt32 GetMessageCount(String queueName)

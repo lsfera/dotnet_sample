@@ -12,11 +12,11 @@ Documentation: https://github.com/mariotoffia/FluentDocker
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ductus.FluentDocker" Version="2.7.3" />
+    <PackageReference Include="Ductus.FluentDocker" Version="2.10.6" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-    <PackageReference Include="NLog" Version="4.7.7" />
+    <PackageReference Include="NLog" Version="4.7.9" />
     <PackageReference Include="xunit.abstractions" Version="2.0.3" />
     <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
     <PackageReference Include="Xunit.Extensions.Logging" Version="1.1.0" />
